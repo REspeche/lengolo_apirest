@@ -1,0 +1,34 @@
+{
+  "name": "apirest_ecommerce",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Incloux",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "aws-sdk": "^2.713.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "formidable": "^1.2.2",
+    "fs-extra": "^9.0.0",
+    "graphql": "^15.0.0",
+    "jimp": "^0.10.3",
+    "jsonwebtoken": "^8.5.1",
+    "local-storage": "^2.0.0",
+    "md5": "^2.2.1",
+    "mysql": "^2.18.1",
+    "node-persist": "^3.0.5",
+    "nodemailer": "^6.4.6",
+    "randomstring": "^1.1.5",
+    "socket.io": "^2.3.0"
+  }
+}
