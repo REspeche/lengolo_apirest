@@ -104,7 +104,7 @@ exports.getMembers = function(req, res) {
           });
       });
   };
-  
+
   exports.updateMember = function(req, res) {
     util.logConsole(0,'Profile/updateMember');
     util.logConsole(1,req.query);
@@ -178,11 +178,11 @@ exports.getMembers = function(req, res) {
                   });
               }
               else res.send(ret);
-            });          
+            });
         }
       });
   };
-  
+
   exports.getMember = function(req, res) {
     util.logConsole(0,'Profile/getMember');
     util.logConsole(1,req.query);
@@ -196,7 +196,7 @@ exports.getMembers = function(req, res) {
           });
       });
   };
-  
+
   exports.removeMember = function(req, res) {
     util.logConsole(0,'Profile/removeMember');
     util.logConsole(1,req.query);
@@ -210,7 +210,7 @@ exports.getMembers = function(req, res) {
           });
       });
   };
-  
+
   exports.resetPass = function(req, res) {
     util.logConsole(0,'Profile/resetPass');
     util.logConsole(1,req.query);
@@ -236,4 +236,19 @@ exports.getMembers = function(req, res) {
             res.json(ret);
         }
     );
-};
+  };
+  
+  exports.payMember = function(req, res) {
+    util.logConsole(0,'Profile/payMember');
+    util.logConsole(1,req.query);
+    session.verifyToken(req, res, function() {
+      Profile.payMember(
+        req.query['usrId'],
+        req.query['memId'],
+        function(task) {
+            util.logConsole(3,task);
+            res.send(task);
+        }
+      );
+    });
+  };

@@ -234,6 +234,22 @@ var Profile = {
         }
         result(ret);
     });
+  },
+  payMember: function(usrId, memId, result) {
+    var ret = new response;
+    var strSQL = "CALL SP_PAY_MEMBER("+usrId+", "+memId+")";
+    util.logConsole(2,strSQL);
+    conn.query(strSQL, function (err, rows) {
+        if(err) {
+            console.log("error: ", err);
+            ret.code = 300;
+            ret.message = err.message;
+        }
+        else{
+            ret.data = JSON.parse(JSON.stringify(rows))[0][0];
+        };
+        result(ret);
+    });
   }
 };
 

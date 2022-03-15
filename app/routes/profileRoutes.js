@@ -36,4 +36,7 @@ module.exports = function(app) {
 
   app.route(config.app.base+'/v1/profile/getHeaderRestaurant')
     .post(profileController.getHeaderRestaurant);
+
+  app.route(config.app.base+'/v1/secured/profile/payMember')
+    .post(profileController.payMember);
 };
