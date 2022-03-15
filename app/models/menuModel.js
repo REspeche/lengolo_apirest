@@ -15,7 +15,7 @@ var Menu = {
     if (code) {
         var retStorage = await storage.getItem(nameStorage);
         if (!retStorage || delivery==1) {
-            var timeE = -1;
+            var timeMenuE = -1;
             var strSQL = "CALL SP_GET_MENU_SITE2('"+code.substring(0,8)+"', "+menu+", "+delivery+")";
             util.logConsole(2,strSQL);
             conn.query(strSQL, async function (err, rows) {
@@ -35,11 +35,13 @@ var Menu = {
                     else if (rowsReturn.length==3) {
                         header = rowsReturn[0][0];
                         row = rowsReturn[1];
+                        timeMenuE = header.timeMenuE;
                     }
                     else if (rowsReturn.length==4) {
                         header = rowsReturn[0][0];
                         row = rowsReturn[1];
                         messages = rowsReturn[2];
+                        timeMenuE = header.timeMenuE;
                     };
 
                     if (row && row.length>0) {
@@ -48,7 +50,6 @@ var Menu = {
                         let items = [];
                         let lastItem = row[0];
                         row.forEach(function(item) {
-                            if (timeE < 0) timeE = item.timeE;
                             if (lastItem.catId!=item.catId) {
                                 if (lastItem.catIdParent==0) {
                                     if (retItems.length>0) {
@@ -157,7 +158,9 @@ var Menu = {
                             nameStorage = 'C_'+code+'_M'+header.menIdCache;
                             let nowDate = new Date();
                             let nowMinutes = nowDate.getMinutes() + (nowDate.getHours() * 60);
-                            let restMinutes = timeE - nowMinutes;
+                            let restMinutes = timeMenuE - nowMinutes;
+                            util.logConsole(5,'timeMenuE: '+timeMenuE);
+                            util.logConsole(5,'nowMinutes: '+nowMinutes);
                             if (restMinutes<0) restMinutes = 1;
                             util.logConsole(5,'TTL to storage '+nameStorage+' is: '+restMinutes);
 
@@ -306,11 +309,16 @@ var Menu = {
                 if (rows2 && rows2.length>0) {
                     let code = '';
                     rows2.forEach(async function (row) {
+                        let nameStorage;
                         if (code!=row.codeMenu) {
+                            nameStorage = 'C_'+row.codeMenu+'_M0';
                             code = row.codeMenu;
-                            await storage.removeItem('C_'+code+'_M0');
+                            await storage.removeItem(nameStorage);
+                            util.logConsole(5,'Remove --> '+nameStorage);
                         }
-                        await storage.removeItem('C_'+code+'_M'+row.menId);
+                        nameStorage = 'C_'+code+'_M'+row.menId;
+                        await storage.removeItem(nameStorage);
+                        util.logConsole(5,'Remove --> '+nameStorage);
                     });
 
                     code = '';
