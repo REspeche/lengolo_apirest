@@ -35,4 +35,10 @@ module.exports = function(app) {
 
   app.route(config.app.base+'/v1/secured/menu/deliveryMenu')
     .post(menuController.deliveryMenu);
+
+  app.route(config.app.base+'/v1/secured/menu/getJsonLanguage')
+    .post(menuController.getJsonLanguage);
+
+  app.route(config.app.base+'/v1/secured/menu/saveJsonLanguage')
+    .post(menuController.saveJsonLanguage);
 };

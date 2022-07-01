@@ -4,6 +4,7 @@ var util = require('../utils/util');
 var Menu = require('../models/menuModel');
 var File = require('../models/fileModel');
 var querystring = require("querystring");
+var formidable = require('formidable');
 
 exports.getMenuSite = function(req, res) {
     util.logConsole(0,'Menu/getMenuSite');
@@ -187,4 +188,47 @@ exports.deliveryMenu = function(req, res) {
             }
         );
 	});
+};
+
+exports.getJsonLanguage = function(req, res) {
+    util.logConsole(0,'Menu/getJsonLanguage');
+    util.logConsole(1,req.query);
+  	session.verifyToken(req, res, function() {
+  	    Menu.getJsonLanguage(
+              req.query['usrId'],
+              req.query['menId'],
+              function(ret) {
+                  util.logConsole(3,ret);
+                  res.json(ret);
+              }
+          );
+  	});
+};
+
+exports.saveJsonLanguage = function(req, res) {
+    util.logConsole(0,'Menu/saveJsonLanguage');
+    util.logConsole(1,req.query);
+  	session.verifyToken(req, res, function() {
+      let jsonStr = undefined;
+      new formidable.IncomingForm().parse(req)
+        .on('field', function(name, field) {
+            jsonStr = field;
+        })
+        .on('error', function(err) {
+            next(err);
+        })
+        .on('end', function() {
+            Menu.saveJsonLanguage(
+                  req.query['usrId'],
+                  req.query['menId'],
+                  jsonStr,
+                  req.query['lang'],
+                  function(ret) {
+                      util.logConsole(3,ret);
+                      res.json(ret);
+                  }
+            );
+        });
+
+  	});
 };

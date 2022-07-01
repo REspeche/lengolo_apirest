@@ -46,6 +46,9 @@ const config = {
     },
     css: {
       path: 'css/'
+    },
+    language: {
+      path: 'language/'
     }
   }
 };

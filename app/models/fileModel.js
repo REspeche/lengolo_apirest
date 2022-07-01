@@ -167,6 +167,10 @@ var File = {
       util.logConsole(1,'file/viewFile: '+fileName);
       var contentType = "";
       switch (extension) {
+        case "json":
+          contentType = "application/json";
+          pathSize = "";
+          break;
         case "css":
           contentType = "text/css";
           pathSize = "";

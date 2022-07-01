@@ -126,3 +126,50 @@ exports.validateCodeQR = function(req, res) {
 			});
 	});
 };
+
+exports.getListLanguages = function(req, res) {
+	util.logConsole(0,'common/getListLanguages');
+	util.logConsole(1,req.query);
+	session.verifyToken(req, res, function() {
+		Common.getListLanguages(
+			req.query['usrId'],
+			req.query['menId'],
+			function(ret) {
+				util.logConsole(3,ret);
+				res.json(ret);
+			}
+		);
+	});
+};
+
+exports.newLanguage = function(req, res) {
+	util.logConsole(0,'common/newLanguage');
+	util.logConsole(1,req.query);
+	session.verifyToken(req, res, function() {
+		Common.newLanguage(
+			req.query['usrId'],
+			req.query['menId'],
+			req.query['lanCode'],
+			function(ret) {
+				util.logConsole(3,ret);
+				res.json(ret);
+			}
+		);
+	});
+};
+
+exports.removeLanguage = function(req, res) {
+	util.logConsole(0,'common/removeLanguage');
+	util.logConsole(1,req.query);
+	session.verifyToken(req, res, function() {
+		Common.removeLanguage(
+			req.query['usrId'],
+			req.query['menId'],
+			req.query['lanCode'],
+			function(ret) {
+				util.logConsole(3,ret);
+				res.json(ret);
+			}
+		);
+	});
+};

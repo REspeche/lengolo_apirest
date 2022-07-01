@@ -7,6 +7,8 @@ var conn = require('../utils/db');
 var util = require('../utils/util');
 var md5 = require('md5');
 
+var File = require('../models/fileModel');
+
 //Constructor
 var Menu = {
   getMenuSite: async function(code, menu, delivery, refresh, result) {
@@ -377,6 +379,33 @@ var Menu = {
         };
         result(ret);
     });
+  },
+  getJsonLanguage: function(usrId, menId, result) {
+    var ret = new response;
+    var strSQL = "CALL SP_GET_JSON_LANGUAGE("+usrId+", "+menId+")";
+    util.logConsole(2,strSQL);
+    conn.query(strSQL, function (err, rows) {
+        if(err) {
+            ret.code = err.errno;
+            ret.message = err.message;
+        }
+        else{
+            ret.data = JSON.parse(JSON.stringify(rows))[0];
+        };
+        result(ret);
+    });
+  },
+  saveJsonLanguage: function(usrId, menId, jsonData, lang, result) {
+    var ret = new response;
+    if (menId && jsonData) {
+        var fileName = menId + '_' + lang + '.json';
+        File.writeFileOnDisk('language', fileName, jsonData, function() {
+            result(ret);
+        });
+    }
+    else {
+        result(ret);
+    }
   }
 };
 

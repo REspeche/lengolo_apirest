@@ -41,7 +41,8 @@ module.exports = {
                       multipleQR: row.multipleQR,
                       covid19: row.covid19,
                       trial: row.trial,
-                      isDebtor: row.isDebtor
+                      isDebtor: row.isDebtor,
+                      multiLanguage: row.multiLanguage
                     };
                   }
                 }
@@ -84,7 +85,9 @@ module.exports = {
                 canDelivery: row.canDelivery,
                 multipleQR: row.multipleQR,
                 covid19: row.covid19,
-                trial: row.trial
+                trial: row.trial,
+                isDebtor: row.isDebtor,
+                multiLanguage: row.multiLanguage
               };
             }
             else {
@@ -222,7 +225,9 @@ module.exports = {
                         canDelivery: row.canDelivery,
                         multipleQR: row.multipleQR,
                         covid19: row.covid19,
-                        trial: row.trial
+                        trial: row.trial,
+                        isDebtor: row.isDebtor,
+                        multiLanguage: row.multiLanguage
                       };
                     }
                     else {
@@ -271,7 +276,9 @@ module.exports = {
                         canDelivery: row.canDelivery,
                         multipleQR: row.multipleQR,
                         covid19: row.covid19,
-                        trial: row.trial
+                        trial: row.trial,
+                        isDebtor: row.isDebtor,
+                        multiLanguage: row.multiLanguage
                       };
                       mail.sendMail(
                         email,

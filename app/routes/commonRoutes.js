@@ -32,9 +32,16 @@ module.exports = function(app) {
 
   app.route(config.app.base+'/v1/secured/common/getlistalerts')
     .post(commonController.getListAlerts);
-  
+
   app.route(config.app.base+'/v1/secured/common/validateCodeQR')
     .post(commonController.validateCodeQR);
-};
 
-  
+  app.route(config.app.base+'/v1/secured/common/getListLanguages')
+    .post(commonController.getListLanguages);
+
+  app.route(config.app.base+'/v1/secured/common/newLanguage')
+    .post(commonController.newLanguage);
+
+  app.route(config.app.base+'/v1/secured/common/removeLanguage')
+    .post(commonController.removeLanguage);
+};

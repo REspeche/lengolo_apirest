@@ -170,6 +170,63 @@ var Common = {
 				result(ret);
 			}
 		);
+  },
+  getListLanguages: function(usr_id, men_id, result) {
+    var ret = new response;
+    var strSQL = "CALL SP_GET_LIST_LANGUAGES("+usr_id+", "+men_id+")";
+    util.logConsole(2,strSQL);
+    conn.query(strSQL, function (err, rows) {
+      if(err) {
+        ret.code = err.errno;
+        ret.message = err.message;
+      }
+      else{
+        var row = JSON.parse(JSON.stringify(rows))[0];
+        if (row) {
+          ret.data = row;
+        }
+        else ret.code = 200;
+      }
+      result(ret);
+    });
+  },
+  newLanguage: function(usr_id, men_id, lan_code, result) {
+    var ret = new response;
+    var strSQL = "CALL SP_INSERT_LANGUAGE("+usr_id+", "+men_id+", '"+lan_code+"')";
+    util.logConsole(2,strSQL);
+    conn.query(strSQL, function (err, rows) {
+      if(err) {
+        ret.code = err.errno;
+        ret.message = err.message;
+      }
+      else{
+        var row = JSON.parse(JSON.stringify(rows))[0][0];
+        if (row) {
+          ret.data = row;
+        }
+        else ret.code = 200;
+      }
+      result(ret);
+    });
+  },
+  removeLanguage: function(usr_id, men_id, lan_code, result) {
+    var ret = new response;
+    var strSQL = "CALL SP_REMOVE_LANGUAGE("+usr_id+", "+men_id+", '"+lan_code+"')";
+    util.logConsole(2,strSQL);
+    conn.query(strSQL, function (err, rows) {
+      if(err) {
+        ret.code = err.errno;
+        ret.message = err.message;
+      }
+      else{
+        var row = JSON.parse(JSON.stringify(rows))[0][0];
+        if (row) {
+          ret.data = row;
+        }
+        else ret.code = 200;
+      }
+      result(ret);
+    });
   }
 };
 
