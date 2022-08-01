@@ -398,7 +398,7 @@ var Menu = {
   saveJsonLanguage: function(usrId, menId, jsonData, lang, result) {
     var ret = new response;
     if (menId && jsonData) {
-        var fileName = menId + '_' + lang + '.json';
+        var fileName = usrId + '_' + lang + '.json';
         File.writeFileOnDisk('language', fileName, jsonData, function() {
             result(ret);
         });
