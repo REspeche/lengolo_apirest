@@ -1,9 +1,9 @@
 module.exports = {
     apps : [
         {
-            name: "lengolo",
+            name: "lengolo:8080",
             script: "./app.js",
-            watch: true,
+            watch: false,
             env: {
                 "PORT": 3000,
                 "NODE_ENV": "development"

@@ -14,7 +14,6 @@ const io = require('socket.io')(server);
 const compression = require('compression');
 
 process.env.TZ = "America/Argentina/Buenos_Aires";
-
 // compress all responses
 app.use(compression());
 
@@ -46,7 +45,7 @@ module.exports.getSocketIo = function() {
   return io;
 };
 
-// start server
+// start server HTTP
 server.listen(port, async function () {
     //first call storage.init
     await storage.init({
@@ -57,7 +56,7 @@ server.listen(port, async function () {
         expiredInterval: 24 * 60 * 60 * 1000 //24hs
     });
 
-    console.log('APIRest server started on: '+port);
+    console.log('APIRest server HTTP started on: '+port);
 });
 
 module.exports = app;
