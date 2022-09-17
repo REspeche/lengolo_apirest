@@ -3,9 +3,23 @@ const config = require('./app/config');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var storage = require('node-persist');
+var fs = require('fs');
+
+// Certificate SSL
+let options = {
+   cert: fs.readFileSync('./ssl/certificate.crt'),
+   ca: fs.readFileSync('./ssl/ca_bundle.crt'),
+   key: fs.readFileSync('./ssl/private.key')
+};
+/*
+let options = {
+  key: fs.readFileSync('./ssl/cert.key'),
+  cert: fs.readFileSync('./ssl/cert.pem')
+}
+*/
 
 // variables
-var port = process.env.PORT || config.app.port;
+const port = process.env.PORT || config.app.port;
 
 // constants
 const app = require('express')();
@@ -18,7 +32,12 @@ process.env.TZ = "America/Argentina/Buenos_Aires";
 app.use(compression());
 
 // use it before all route definitions
-app.use(cors({origin: '*', credentials: true}));
+app.use(cors(
+  {
+    origin: '*',
+    credentials: true
+  }
+));
 
 // default route
 app.get(config.app.base+'/', function (req, res) {

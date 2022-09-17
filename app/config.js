@@ -2,8 +2,8 @@ const config = {
  app: {
     port: 3000,
     base: '/api',
-    server: 'http://localhost:8080',
-    site: 'http://localhost'
+    server: 'http://dashboard.lengolo.com.ar',
+    site: 'http://lengolo.com.ar'
  },
  db: {
     host     : 'localhost',
@@ -17,7 +17,7 @@ const config = {
     tokenLife: 86400
  },
  smtp: {
-    service: 'gmail',
+        service: 'gmail',
     user: 'lengolo.incloux@gmail.com',
     pass: 'Incloux123$',
     from: {
