@@ -3,15 +3,15 @@ const config = require('./app/config');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var storage = require('node-persist');
-var fs = require('fs');
 
 // Certificate SSL
+/*
+var fs = require('fs');
 let options = {
    cert: fs.readFileSync('./ssl/certificate.crt'),
    ca: fs.readFileSync('./ssl/ca_bundle.crt'),
    key: fs.readFileSync('./ssl/private.key')
 };
-/*
 let options = {
   key: fs.readFileSync('./ssl/cert.key'),
   cert: fs.readFileSync('./ssl/cert.pem')
