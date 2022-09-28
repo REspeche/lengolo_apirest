@@ -7,9 +7,9 @@ var util = require('../utils/util');
 
 //Constructor
 var Order = {
-  makeOrderDelivery: function(code, hash, orderJson, address, zip, total, comment, room, result) {
+  makeOrderDelivery: function(code, hash, orderJson, address, zip, total, comment, room, menId, result) {
     var ret = new response;
-    var strSQL = "CALL SP_MAKE_ORDER('"+code+"','"+hash+"','"+orderJson+"','"+address+"','"+zip+"','"+total+"','"+comment+"','"+room+"')";
+    var strSQL = "CALL SP_MAKE_ORDER('"+code+"','"+hash+"','"+orderJson+"','"+address+"','"+zip+"','"+total+"','"+comment+"','"+room+"',"+menId+")";
     util.logConsole(2,strSQL);
     conn.query(strSQL, function (err, rows) {
         if(err) {
@@ -21,14 +21,14 @@ var Order = {
             ret.data = row;
 
             // emit the event from the server to the restaurant
-            app.getSocketIo().emit('order_'+row.usrId, 1);
+            app.getSocketIo().emit('order_'+menId+'_'+row.usrId, 1);
         };
         result(ret);
     });
   },
-  getOrderClient: function(code, hash, result) {
+  getOrderClient: function(code, hash, menId, result) {
     var ret = new response;
-    var strSQL = "CALL SP_GET_ORDER_CLIENT('"+code+"','"+hash+"')";
+    var strSQL = "CALL SP_GET_ORDER_CLIENT('"+code+"','"+hash+"',"+menId+")";
     util.logConsole(2,strSQL);
     conn.query(strSQL, function (err, rows) {
         if(err) {
@@ -70,14 +70,14 @@ var Order = {
             ret.data = row;
 
             // emit the event from the server to the restaurant
-            app.getSocketIo().emit('order_'+row.usrId, 2);
+            app.getSocketIo().emit('order_'+row.menId+'_'+row.usrId, 2);
         };
         result(ret);
     });
   },
-  getOrders: function(usrId, result) {
+  getOrders: function(usrId, menId, period, result) {
     var ret = new response;
-    var strSQL = "CALL SP_GET_ORDERS("+usrId+")";
+    var strSQL = "CALL SP_GET_ORDERS("+usrId+","+menId+","+period+")";
     util.logConsole(2,strSQL);
     conn.query(strSQL, function (err, rows) {
         if(err) {
@@ -108,7 +108,7 @@ var Order = {
               'id': row.id,
               'status': row.status
             };
-            app.getSocketIo().emit('refresh_'+row.codeRestaurant+'-'+row.hash, JSON.stringify(_data));
+            app.getSocketIo().emit('refresh_'+row.menId+'-'+row.hash, JSON.stringify(_data));
         };
         result(ret);
     });
@@ -131,7 +131,7 @@ var Order = {
               'id': row.id,
               'status': row.status
             };
-            app.getSocketIo().emit('refresh_'+row.codeRestaurant+'-'+row.hash, JSON.stringify(_data));
+            app.getSocketIo().emit('refresh_'+row.menId+'-'+row.hash, JSON.stringify(_data));
         };
         result(ret);
     });

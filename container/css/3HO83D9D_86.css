@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.is-child h3 {
+font-size: 20px;
+}
+
+div.font-dark p {
+font-style: italic;
+color: #333;
+}
+
+.row.menu2 h3.category-title ~p {}
+color: #4e6e7d;
+font-weight: bold;
+font-style: italic;
+}
+
+.item .price {
+padding-right: 37px;
+}
+
+.inner-page-banner-area {
+background: url("http://ambcomunicacion.com.ar/ambparaterceros/HOL/html/2020/BIS-menuqr-agos20/fondo-encabezado5.jpg");
+background-color: #fff;
+height: 80px;
+}
+
+.inner-page-banner-area:after {
+background: rgba(0, 0, 0, 0.0);
+}
+
+.inner-page-banner-area .pagination-area h1 {
+opacity: 0.0;
+}
+
+img.rounded-circle {
+border-radius: 0%;
+}
+
+div.logo {
+bottom: -16px;
+border-radius: 0%;
+left: 10%;
+}
+
+h3 {
+display: block;
+font-size: 20px;
+font-weight: 600;
+}
+
+div.font-dark h3 {
+color: #4e6e7d;
+}
+
+.item h4 {
+font-size: 15px;
+max-width: 80%;
+text-transform: initial;
+margin-bottom: 8px;
+line-height: 1.2;
+}
+
+div.font-dark .item h4 {
+color: #333;
+}
+
+
+div.font-dark .item .price {
+color: #666;
+}
+
+.price span {
+font-size: 17px;
+font-weight: bold;
+}
+
+
+html, body {
+font-family: 'Open Sans', sans-serif;
+font-size: 13px;
+}
+
+body {
+line-height: 1.9;
+}
+
+.h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
+font-size: 100%;
+}
+
+.item p {
+margin-left: 0px;
+font-style: italic;
+margin-right: 100px;
+}
+
+div.font-dark .item h4 small {
+    color: #545859;
+}
+
+.price span.sign::before, .lab-price::before, .total span::before, .priceItem span::before {
+line-height: 31px;
+vertical-align: top;
+}
+
+p {
+line-height: 1.2;
+{

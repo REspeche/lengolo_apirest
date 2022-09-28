@@ -15,6 +15,7 @@ exports.makeOrderDelivery = function(req, res) {
         req.query['total'],
         req.query['comment'],
         req.query['room'],
+        req.query['menId'],
         function(ret) {
             util.logConsole(3,ret);
             res.json(ret);
@@ -28,6 +29,7 @@ exports.getOrderClient = function(req, res) {
     Order.getOrderClient(
         req.query['code'],
         req.query['hash'],
+        req.query['menId'],
         function(ret) {
             util.logConsole(3,ret);
             res.json(ret);
@@ -68,6 +70,8 @@ exports.getOrders = function(req, res) {
 	session.verifyToken(req, res, function() {
         Order.getOrders(
             req.query['usrId'],
+            req.query['menId'],
+            req.query['period'],
             function(ret) {
                 util.logConsole(3,ret);
                 res.json(ret);
