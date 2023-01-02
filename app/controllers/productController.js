@@ -154,3 +154,10 @@ exports.changePrice = function(req, res) {
         );
 	});
 };
+
+exports.purgeFolderCDN = function(req, res) {
+    util.logConsole(0,'Product/purgeFolderCDN');
+    util.logConsole(1,req.query);
+    File.purgeFolderCDN();
+    res.send({ message: 'ok' });
+};

@@ -28,4 +28,8 @@ module.exports = function(app) {
 
   app.route(config.app.base+'/v1/secured/product/changePrice')
     .post(productController.changePrice);
+
+  //Home not secured
+  app.route(config.app.base+'/v1/product/purgeFolderCDN')
+    .get(productController.purgeFolderCDN);
 };

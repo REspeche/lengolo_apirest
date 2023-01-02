@@ -18,7 +18,7 @@ const s3 = new AWS.S3({
 
 var File = {
   uploadImage: async function(type, req, usrId, recordImageId, uploadFile, notRemove, callback) {
-    util.logConsole(0,'file/uploadImage ('+type+')');
+    //util.logConsole(0,'file/uploadImage ('+type+')');
     var vFiles = [];
     var form = new formidable.IncomingForm();
 
@@ -33,7 +33,7 @@ var File = {
         console.error(err);
     });
     form.on('end', function() {
-        console.error('call uploadImage <-- ('+vFiles.length+' files)');
+        //console.error('call uploadImage <-- ('+vFiles.length+' files)');
         if (vFiles.length>0) {
           vFiles.forEach(function (itemFile) {
             File.saveImageOnDisk(type, itemFile, usrId, recordImageId, uploadFile, notRemove, callback);
@@ -144,13 +144,42 @@ var File = {
   },
   removeFileCDN: async function(key, buffData) {
     let params = {
-      Bucket: "incloux",
+      Bucket: "incloux-lengolo-cdn",
       Key: key,
     };
     s3.deleteObject(params,function (err, data){
       if (err) console.error(err);
       else console.log("success CDN remove: "+key);
     });
+  },
+  purgeFolderCDN: async function() {
+    let params = {
+      Bucket: "incloux-lengolo-cdn",
+      Delimiter: '/',
+      Prefix: config.files['product'].path + 'large/'
+    };
+    const data = await s3.listObjects(params).promise();
+    let rawdata = fs.readFileSync('./container/actualProducts.json');
+    let rows = JSON.parse(rawdata);
+    let removedCounter = 0;
+
+    for (let index = 1; index < data['Contents'].length; index++) {
+      let found = false;
+      let imageToFind = data['Contents'][index]['Key'].replace(params.Prefix, '');
+
+      rows.forEach(row => {
+        if (!found && row.pro_image == imageToFind) {
+          found = true;
+        }
+      });
+
+      if (!found) {
+        File.removeFileCDN(data['Contents'][index]['Key']);
+        removedCounter++;
+      };
+    };
+
+    console.log('Removed files: '+removedCounter);
   },
   viewFile: async function(req, res) {
   	var fileName = req.query['file'];
