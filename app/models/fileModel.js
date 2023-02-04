@@ -12,8 +12,8 @@ var randomstring = require("randomstring");
 const spacesEndpoint = new AWS.Endpoint('sfo3.digitaloceanspaces.com');
 const s3 = new AWS.S3({
     endpoint: spacesEndpoint,
-    accessKeyId: 'W5TK57IZLQX46H2EFH2Z',
-    secretAccessKey: '2l2C3dyDgerWjx4W7vRQ3RdLR5QsrR+2hJo3h/lk+lQ'
+    accessKeyId: config.s3.accessKeyId,
+    secretAccessKey: config.s3.secretAccessKey
 });
 
 var File = {
@@ -72,7 +72,7 @@ var File = {
                   console.log("success large file write: "+newFile);
 
                   //save CDN
-                  if (!isLocalhost) {
+                  if (!isLocalhost && config.s3.enable) {
                     image.getBufferAsync(jimp.MIME_JPEG).then((buff) => {
                       File.writeFileCDN(config.files[type].path + 'large/' + newFile, buff);
                     });
@@ -83,7 +83,7 @@ var File = {
                     fs.unlink(filePathOld + 'large/' + oldFile, function(err) {
                         if (!err) {
                           console.log("success remove large file: "+oldFile);
-                          if (!isLocalhost) {
+                          if (!isLocalhost && config.s3.enable) {
                             File.removeFileCDN(config.files[type].path + 'large/' + oldFile);
                           }
                         }
@@ -99,7 +99,7 @@ var File = {
                         console.log("success small file write: "+newFile);
 
                         //save CDN
-                        if (!isLocalhost) {
+                        if (!isLocalhost && config.s3.enable) {
                           image.getBufferAsync(jimp.MIME_JPEG).then((buff) => {
                             File.writeFileCDN(config.files[type].path + 'small/' + newFile, buff);
                           });
@@ -110,7 +110,7 @@ var File = {
                           fs.unlink(filePathOld + 'small/' + oldFile, function(err) {
                               if (!err) {
                                 console.log("success remove small file: "+oldFile);
-                                if (!isLocalhost) {
+                                if (!isLocalhost && config.s3.enable) {
                                   File.removeFileCDN(config.files[type].path + 'small/' + oldFile);
                                 }
                               }

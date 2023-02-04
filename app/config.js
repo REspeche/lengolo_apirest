@@ -12,6 +12,11 @@ const config = {
     password : 'FVz^8AW8%q3MJ|+|p5?L6YB2k|u@o%F&',
     database : 'menu_db'
  },
+ s3: {
+     enable: false,
+     accessKeyId: 'W5TK57IZLQX46H2EFH2Z',
+     secretAccessKey: '2l2C3dyDgerWjx4W7vRQ3RdLR5QsrR+2hJo3h/lk+lQ'
+ },
  session: {
     secret: '@V}kee1&rf0Mt_~[xVZ(@TPbM|KWs@bi!~S%dDOvJ',
     tokenLife: 86400
