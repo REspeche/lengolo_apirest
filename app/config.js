@@ -6,7 +6,7 @@ const config = {
     site: 'http://lengolo.com.ar'
  },
  db: {
-    host     : 'localhost',
+    host     : '127.0.0.1',
     port     : '3306',
     user     : 'menu_user',
     password : 'FVz^8AW8%q3MJ|+|p5?L6YB2k|u@o%F&',
